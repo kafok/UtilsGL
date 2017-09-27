@@ -21,41 +21,37 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFWVidMode;
 
-
-public class Monitor 
-{
+public class Monitor {
+	
 	private long monitor;
 	private VideoMode vm;
-	
-	
-	private Monitor(long monitor)
-	{
+
+	private Monitor(long monitor) {
 		this.monitor = monitor;
-		
+
 		GLFWVidMode mode = glfwGetVideoMode(monitor);
-		vm = new VideoMode(mode.width(), mode.height(), mode.redBits(), mode.greenBits(), mode.blueBits(), mode.refreshRate());
+		vm = new VideoMode(mode.width(), mode.height(), mode.redBits(), mode.greenBits(), mode.blueBits(),
+				mode.refreshRate());
 	}
+
 	
-	
-	//getters
+	// getters
 	public VideoMode getVideoMode() {
 		return vm;
 	}
 
-
 	public List<VideoMode> getVideoModes() {
 		List<VideoMode> res = new LinkedList<VideoMode>();
-		
+
 		GLFWVidMode.Buffer bf = glfwGetVideoModes(monitor);
-		for(int i=0; i<bf.limit(); i++)
-		{
+		for (int i = 0; i < bf.limit(); i++) {
 			GLFWVidMode mode = bf.get(i);
-			res.add(new VideoMode(mode.width(), mode.height(), mode.redBits(), mode.greenBits(), mode.blueBits(), mode.refreshRate()));
+			res.add(new VideoMode(mode.width(), mode.height(), mode.redBits(), mode.greenBits(), mode.blueBits(),
+					mode.refreshRate()));
 		}
-		
+
 		return res;
 	}
-
 
 	public int getPhysicalWidth() {
 		IntBuffer width = BufferUtils.createIntBuffer(1);
@@ -63,13 +59,11 @@ public class Monitor
 		return width.get(0);
 	}
 
-
 	public int getPhysicalHeight() {
 		IntBuffer height = BufferUtils.createIntBuffer(1);
 		glfwGetMonitorPhysicalSize(monitor, null, height);
 		return height.get(0);
 	}
-
 
 	public int getPosX() {
 		IntBuffer width = BufferUtils.createIntBuffer(1);
@@ -77,35 +71,29 @@ public class Monitor
 		return width.get(0);
 	}
 
-
 	public int getPosY() {
 		IntBuffer height = BufferUtils.createIntBuffer(1);
 		glfwGetMonitorPos(monitor, null, height);
 		return height.get(0);
 	}
 
-
 	public String getName() {
 		return glfwGetMonitorName(monitor);
 	}
-	
-	
+
 	public long get() {
 		return monitor;
 	}
-	
-	
+
 	public void setVideoMode(VideoMode vm) {
 		this.vm = vm;
 	}
-	
-	
-	//object
-	public String toString()
-	{
+
+	// object
+	public String toString() {
 		return "Monitor: " + getName();
 	}
-	
+
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -113,44 +101,38 @@ public class Monitor
 		return result;
 	}
 
-	public boolean equals(Object obj) 
-	{
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		
+
 		Monitor other = (Monitor) obj;
 		if (monitor != other.monitor)
 			return false;
-		
+
 		return true;
 	}
 
-
-	//estaticos
-	public static Monitor getPrimaryMonitor()
-	{
+	// estaticos
+	public static Monitor getPrimaryMonitor() {
 		return new Monitor(glfwGetPrimaryMonitor());
 	}
 
-	public static List<Monitor> getMonitors()
-	{
+	public static List<Monitor> getMonitors() {
 		List<Monitor> res = new LinkedList<Monitor>();
-		
+
 		PointerBuffer bf = glfwGetMonitors();
-		for(int i=0; i<bf.limit(); i++)
+		for (int i = 0; i < bf.limit(); i++)
 			res.add(new Monitor(bf.get(i)));
-		
+
 		return res;
 	}
-	
-	
-	//crear monitor
-	public void createMonitor(VideoMode vm)
-	{
+
+	// crear monitor
+	public void createMonitor(VideoMode vm) {
 		glfwWindowHint(GLFW_RED_BITS, vm.getRedBits());
 		glfwWindowHint(GLFW_GREEN_BITS, vm.getGreenBits());
 		glfwWindowHint(GLFW_BLUE_BITS, vm.getBlueBits());

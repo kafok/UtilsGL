@@ -4,8 +4,7 @@ import java.util.List;
 
 import com.input.SpecialKey;
 
-public class WindowEvent 
-{
+public abstract class WindowEvent {
 	public boolean onClose() { return true; }
 	public void onResize(int x, int y) {}
 	public void onMove(int x, int y) {}

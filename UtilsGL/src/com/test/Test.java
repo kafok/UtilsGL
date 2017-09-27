@@ -24,7 +24,7 @@ public class Test {
 	public static List<Integer> texID;
 	public static FontRender fr;
 
-	public static void main(String[] args) throws InterruptedException, IOException {
+	public static void main(String[] args) throws IOException {
 		UtilsGL.init("./natives");
 
 		win = new Window(new Context().setSamples(0));

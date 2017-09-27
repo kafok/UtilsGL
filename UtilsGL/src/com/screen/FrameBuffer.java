@@ -62,8 +62,6 @@ public class FrameBuffer implements Renderable {
 		
 		if(win == NULL)
 			throw new FailCreateWindowException();
-		
-//		applyEvent();	//TODO eventos de buffer
 	}
 	
 	
