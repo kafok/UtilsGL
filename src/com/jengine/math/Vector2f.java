@@ -31,8 +31,13 @@ public class Vector2f implements Vector2<Float>{
 	@Override
 	public void normalize() {
 		double norm = power();
-		x /= norm;
-		y /= norm;
+		if(norm == 0) {
+			x = 0;
+			y = 0;
+		} else {
+			x /= norm;
+			y /= norm;
+		}
 	}
 
 	@Override

@@ -37,9 +37,15 @@ public class Vector3f implements Vector3<Float> {
 	@Override
 	public void normalize() {
 		double norm = power();
-		x /= norm;
-		y /= norm;
-		z /= norm;
+		if(norm == 0) {
+			x = 0;
+			y = 0;
+			z = 0;
+		} else {
+			x /= norm;
+			y /= norm;
+			z /= norm;
+		}
 	}
 
 	@Override
